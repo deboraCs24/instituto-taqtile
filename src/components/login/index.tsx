@@ -57,9 +57,6 @@ export const Login = ({ onSuccess }: LoginProps) => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-
   return (
     <div>
       <h1>Bem Vindo a TaqTile</h1>
@@ -72,8 +69,11 @@ export const Login = ({ onSuccess }: LoginProps) => {
         error={passwordError}
       />
       <div>
-        <Button onClick={handleSubmit}>Entrar</Button>
+        <Button onClick={handleSubmit} disabled={loading}>
+          {loading ? 'Carregando...' : 'Entrar'}
+        </Button>
       </div>
+      {error && <p>Error: {error.message}</p>}
     </div>
   );
 };
