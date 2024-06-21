@@ -17,4 +17,4 @@ export const Input = ({ text, value, error, onChange, type = 'text' }: InputProp
       {!!error && <p> {error}</p>}
     </div>
   );
-}
+};

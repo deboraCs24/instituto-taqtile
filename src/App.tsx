@@ -1,9 +1,10 @@
 import React from 'react';
+import { Login } from './components/login';
 
 export default function App() {
   return (
     <div>
-      <h1>Hello Word</h1>
+      <Login />
     </div>
   );
 }
