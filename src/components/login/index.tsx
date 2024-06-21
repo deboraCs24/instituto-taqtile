@@ -4,14 +4,21 @@ import { Button } from '../button';
 import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION, LoginInputData } from '../../domain/login';
+import { useNavigate } from 'react-router-dom';
 
-export const Login = () => {
+interface LoginProps {
+  onSuccess?: () => void;
+}
+
+export const Login = ({ onSuccess }: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
   const [loginMutation, { loading, error }] = useMutation<LoginInputData>(LOGIN_MUTATION);
+
+  const navigate = useNavigate();
 
   const validateFields = () => {
     setEmailError('');
@@ -40,6 +47,8 @@ export const Login = () => {
           const token = response.data?.login?.token;
           if (token) {
             localStorage.setItem('token', token);
+            if (onSuccess) onSuccess();
+            navigate('/home');
           }
         })
         .catch((error) => {
