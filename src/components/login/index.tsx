@@ -2,6 +2,8 @@ import React, { useState, ChangeEvent } from 'react';
 import { TextInput } from '../input';
 import { Button } from '../button';
 import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
+import { useMutation } from '@apollo/client';
+import { LOGIN_MUTATION, LoginInputData } from '../../domain/login';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -52,14 +54,7 @@ export const Login = () => {
     <div>
       <h1>Bem Vindo a TaqTile</h1>
       <TextInput text="E-mail" value={email} onChange={handleEmailChange} error={emailError} />
-      <TextInput
-        text="Senha"
-        type="password"
-        password
-        value={password}
-        onChange={handlePasswordChange}
-        error={passwordError}
-      />
+      <TextInput text="Senha" type="password" value={password} onChange={handlePasswordChange} error={passwordError} />
       <div>
         <Button onClick={handleSubmit}>Entrar</Button>
       </div>
