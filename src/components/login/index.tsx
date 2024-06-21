@@ -6,7 +6,11 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION, LoginInputData } from '../../api/mutation/login';
 import { useNavigate } from 'react-router-dom';
 
-export const Login = () => {
+interface LoginProps {
+  onSuccess?: () => void;
+}
+
+export const Login = ({ onSuccess }: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
