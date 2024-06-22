@@ -63,7 +63,8 @@ export const Login = ({ onSuccess }: LoginProps) => {
           const token = response.data?.login?.token;
           if (token) {
             localStorage.setItem('token', token);
-            navigate('/home');
+            if (onSuccess) onSuccess();
+            navigate('/users');
           }
         })
         .catch((error) => {
