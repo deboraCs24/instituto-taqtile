@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../button';
 import { Input } from '../input';
 import { isValidPassword, isValidEmail } from '../../utils/strings-utils';
+import { UseCreateUser } from '../../domain/creat-user/authentication';
+import { useNavigate } from 'react-router-dom';
 
 interface AddUserProps {
   onSuccess?: () => void;
@@ -23,6 +25,17 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
     password: '',
     invalidBirthDate: '',
   });
+
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/');
+    }
+  }, [token, navigate]);
+
+  const { loading, createUser, error } = UseCreateUser({ token });
 
   const validateFields = (
     name: string,
@@ -97,13 +110,22 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const isValid = validateFields(name, email, birthDate, phone, role, password);
     if (isValid) {
       const userData = { email, name, birthDate, phone, role, password };
-      console.log('Dados do usuário:', userData);
-      if (onSuccess) onSuccess();
+      createUser({ variables: { data: userData } })
+        .then((register) => {
+          console.log('Resposta do registro:', register);
+          if (register?.data?.createUser) {
+            if (onSuccess) onSuccess();
+            navigate('/users');
+          }
+        })
+        .catch((error) => {
+          console.error('Erro durante a criação do usuário:', error);
+        });
     }
   };
 
@@ -129,7 +151,8 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
         error={errors.password}
       />
       <div style={{ width: '50%', margin: '12px' }}>
-        <Button>Adicionar Usuário</Button>
+        <Button disabled={loading}>Adicionar Usuário</Button>
+        {error && <p style={{ color: 'red' }}>Erro: {error.message}</p>}
       </div>
     </form>
   );
