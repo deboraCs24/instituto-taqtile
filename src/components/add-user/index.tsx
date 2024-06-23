@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../button';
 import { TextInput } from '../input';
 import { isValidPassword, isValidEmail } from '../../utils/strings-utils';
+import { UseCreateUser } from '../../domain/creat-user/authentication';
+import { useNavigate } from 'react-router-dom';
 
 interface AddUserProps {
   onSuccess?: () => void;
@@ -50,7 +52,7 @@ export const UserRegistrationForm = ({ onSuccess }: AddUserProps) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const isValid = validateUser();
 
@@ -102,7 +104,8 @@ export const UserRegistrationForm = ({ onSuccess }: AddUserProps) => {
         error={errors.password}
       />
       <div style={{ width: '50%', margin: '12px' }}>
-        <Button>Adicionar Usuário</Button>
+        <Button disabled={loading}>Adicionar Usuário</Button>
+        {error && <p style={{ color: 'red' }}>Erro: {error.message}</p>}
       </div>
     </form>
   );
