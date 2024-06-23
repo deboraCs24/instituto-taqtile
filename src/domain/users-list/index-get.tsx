@@ -8,11 +8,6 @@ export const GET_USERS = gql`
         email
         name
       }
-      pageInfo {
-        hasPreviousPage
-        hasNextPage
-        offset
-      }
     }
   }
 `;
@@ -23,16 +18,8 @@ export interface UserNode {
   email: string;
 }
 
-export interface PageInfo {
-  limit: number;
-  hasPreviousPage: boolean;
-  hasNextPage: boolean;
-  offset: number;
-}
-
 export interface UsersData {
   users: {
     nodes: UserNode[];
-    pageInfo: PageInfo;
   };
 }
