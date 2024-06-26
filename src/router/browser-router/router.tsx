@@ -25,6 +25,10 @@ const router = createBrowserRouter([
     path: '/users/:userId',
     element: <UserDetailsPage />,
   },
+  {
+    path: '/users/:userId',
+    element: <UserDetailsPage />,
+  },
 ]);
 
 export { RouterProvider, router };
