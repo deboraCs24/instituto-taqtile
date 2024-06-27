@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input } from '../input';
+import { TextInput } from '../input';
 import { Button } from '../button';
 
 export const Login = () => {
@@ -12,8 +12,8 @@ export const Login = () => {
   return (
     <div>
       <h1>Bem Vindo a TaqTile</h1>
-      <Input text="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <Input text="Senha" type="password" password value={password} onChange={(e) => setPassword(e.target.value)} />
+      <TextInput text="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <TextInput text="Senha" type="password" password value={password} onChange={(e) => setPassword(e.target.value)} />
       <div>
         <Button onClick={handleSubmit}>Entrar</Button>
       </div>

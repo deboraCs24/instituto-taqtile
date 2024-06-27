@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface InputProps {
+interface TextInputProps {
   text?: string;
   type?: string;
   password?: boolean;
@@ -9,7 +9,7 @@ interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Input = ({ text, value, error, onChange, type = 'text' }: InputProps) => {
+export const TextInput = ({ text, value, error, onChange, type = 'text' }: TextInputProps) => {
   return (
     <div>
       {text && <label>{text}</label>}
