@@ -3,7 +3,7 @@ import { TextInput } from '../input';
 import { Button } from '../button';
 import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
 import { useMutation } from '@apollo/client';
-import { LOGIN_MUTATION, LoginInputData } from '../../domain/login';
+import { LOGIN_MUTATION, LoginInputData } from '../../api/mutation';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
