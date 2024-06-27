@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { Input } from '../input';
 import { Button } from '../button';
 import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
@@ -9,38 +9,55 @@ export const Login = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const validateFields = () => {
-    setEmailError('');
-    setPasswordError('');
-
-    if (!email.trim()) {
+  const validateEmail = (email: string) => {
+    if (!email.length) {
       setEmailError('Campo obrigatório.');
     } else if (!isValidEmail(email)) {
       setEmailError('O email informado é inválido.');
+    } else {
+      setEmailError('');
     }
+  };
 
-    if (!password.trim()) {
+  const validatePassword = (password: string) => {
+    if (!password.length) {
       setPasswordError('Campo obrigatório.');
     } else if (password.length < 7) {
       setPasswordError('A senha deve ter pelo menos 7 caracteres.');
     } else if (!isValidPassword(password)) {
       setPasswordError('A senha deve ter pelo menos um dígito e uma letra.');
+    } else {
+      setPasswordError('');
     }
   };
 
-  const handleSubmit = () => {
-    validateFields();
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+    validateEmail(value);
   };
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPassword(value);
+    validatePassword(value);
+  };
+
+  const handleSubmit = () => {
+    validateEmail(email);
+    validatePassword(password);
+  };
+
   return (
     <div>
       <h1>Bem Vindo a TaqTile</h1>
-      <Input text="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} error={emailError} />
+      <Input text="E-mail" value={email} onChange={handleEmailChange} error={emailError} />
       <Input
         text="Senha"
         type="password"
         password
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={handlePasswordChange}
         error={passwordError}
       />
       <div>
