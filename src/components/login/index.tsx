@@ -5,6 +5,7 @@ import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION, LoginInputData } from '../../domain/login';
 import { useNavigate } from 'react-router-dom';
+import { StyledFormContainer } from '../input/style';
 
 interface LoginProps {
   onSuccess?: () => void;
@@ -58,7 +59,7 @@ export const Login = ({ onSuccess }: LoginProps) => {
   };
 
   return (
-    <div>
+    <StyledFormContainer>
       <h1>Bem Vindo a TaqTile</h1>
       <Input text="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} error={emailError} />
       <Input
@@ -74,6 +75,6 @@ export const Login = ({ onSuccess }: LoginProps) => {
         </Button>
       </div>
       {error && <p>Error: {error.message}</p>}
-    </div>
+    </StyledFormContainer>
   );
 };
