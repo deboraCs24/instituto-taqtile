@@ -4,6 +4,7 @@ import { Button } from '../button';
 import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION, LoginInputData } from '../../api/mutation/login';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +13,8 @@ export const Login = () => {
   const [passwordError, setPasswordError] = useState('');
 
   const [loginMutation, { loading, error }] = useMutation<LoginInputData>(LOGIN_MUTATION);
+
+  const navigate = useNavigate();
 
   const validateEmail = (email: string): void => {
     if (!email.length) {
