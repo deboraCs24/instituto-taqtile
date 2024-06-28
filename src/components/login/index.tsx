@@ -59,7 +59,7 @@ export const Login = () => {
           const token = response.data?.login?.token;
           if (token) {
             localStorage.setItem('token', token);
-            navigate('/home');
+            navigate('/users');
           }
         })
         .catch((error) => {

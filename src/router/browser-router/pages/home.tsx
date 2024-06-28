@@ -1,5 +1,6 @@
 import React from 'react';
+import { UserList } from '../../../components/users-list';
 
-export function Home() {
-  return <h1>Navegação bem sucedida</h1>;
+export function UsersList() {
+  return <UserList />;
 }
