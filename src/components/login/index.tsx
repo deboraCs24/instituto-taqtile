@@ -2,6 +2,8 @@ import React, { useState, ChangeEvent } from 'react';
 import { TextInput } from '../input';
 import { Button } from '../button';
 import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
+import { useMutation } from '@apollo/client';
+import { LOGIN_MUTATION, LoginInputData } from '../../api/mutation/login';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -9,7 +11,9 @@ export const Login = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const validateEmail = (email: string) => {
+  const [loginMutation, { loading, error }] = useMutation<LoginInputData>(LOGIN_MUTATION);
+
+  const validateEmail = (email: string): void => {
     if (!email.length) {
       setEmailError('Campo obrigatório.');
     } else if (!isValidEmail(email)) {
@@ -19,7 +23,7 @@ export const Login = () => {
     }
   };
 
-  const validatePassword = (password: string) => {
+  const validatePassword = (password: string): void => {
     if (!password.length) {
       setPasswordError('Campo obrigatório.');
     } else if (password.length < 7) {
@@ -31,37 +35,47 @@ export const Login = () => {
     }
   };
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setEmail(value);
     validateEmail(value);
   };
 
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setPassword(value);
     validatePassword(value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     validateEmail(email);
     validatePassword(password);
+    if (!emailError && !passwordError) {
+      loginMutation({ variables: { data: { email, password } } })
+        .then((response) => {
+          const token = response.data?.login?.token;
+          if (token) {
+            localStorage.setItem('token', token);
+          }
+        })
+        .catch((error) => {
+          console.error('Error na mutação:', error);
+        });
+    }
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
 
   return (
     <div>
       <h1>Bem Vindo a TaqTile</h1>
       <TextInput text="E-mail" value={email} onChange={handleEmailChange} error={emailError} />
-      <TextInput
-        text="Senha"
-        type="password"
-        password
-        value={password}
-        onChange={handlePasswordChange}
-        error={passwordError}
-      />
+      <TextInput text="Senha" type="password" value={password} onChange={handlePasswordChange} error={passwordError} />
       <div>
-        <Button onClick={handleSubmit}>Entrar</Button>
+        <Button onClick={handleSubmit} disabled={loading}>
+          Entrar
+        </Button>
       </div>
     </div>
   );
