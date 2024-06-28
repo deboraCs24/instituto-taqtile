@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { TextInput } from '../input';
 import { Button } from '../button';
 import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
@@ -51,8 +51,15 @@ export const Login = () => {
   return (
     <div>
       <h1>Bem Vindo a TaqTile</h1>
-      <TextInput text="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <TextInput text="Senha" type="password" password value={password} onChange={(e) => setPassword(e.target.value)} />
+      <TextInput text="E-mail" value={email} onChange={handleEmailChange} error={emailError} />
+      <TextInput
+        text="Senha"
+        type="password"
+        password
+        value={password}
+        onChange={handlePasswordChange}
+        error={passwordError}
+      />
       <div>
         <Button onClick={handleSubmit}>Entrar</Button>
       </div>
