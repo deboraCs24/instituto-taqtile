@@ -1,6 +1,6 @@
 import React from 'react';
-import { UserList } from '../../../components/users-list';
+import { UserListContainer } from '../../../components/users-list/index-list';
 
 export function UsersList() {
-  return <UserList />;
+  return <UserListContainer />;
 }
