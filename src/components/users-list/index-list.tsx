@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetUsers } from '../../domain/users-list';
+import { GetUsers } from '../../api/auth/index-list';
 import { UserList } from '.';
 
 export const UserListContainer = () => {
