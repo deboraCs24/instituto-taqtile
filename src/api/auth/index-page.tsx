@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GET_USERS, UsersData } from '../../api/queries/index-users';
+import { GET_USERS, UsersData } from '../queries/index-page';
 
 interface UserQueryOptions {
   perPage?: number;
