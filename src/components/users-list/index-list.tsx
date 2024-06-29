@@ -3,8 +3,7 @@ import { GetUsers } from '../../domain/users-list';
 import { UserList } from '.';
 
 export const UserListContainer = () => {
-  const token = localStorage.getItem('token') || undefined;
-  const { loading, error, data } = GetUsers({ token });
+  const { loading, error, data } = GetUsers();
 
   if (error) {
     return <p>Error: {error.message}</p>;
@@ -16,11 +15,10 @@ export const UserListContainer = () => {
 
   return (
     <div>
-      <h1>Lista de usuários</h1>
-      {data &&
-        data.users.nodes.map((user) => (
-          <UserList key={user.id} userName={user.name} userEmail={user.email} userId={user.id} />
-        ))}
+      <h1>Lista de Usuários</h1>
+      {data?.users.nodes.map((user) => (
+        <UserList key={user.id} userName={user.name} userEmail={user.email} userId={user.id} />
+      ))}
     </div>
   );
 };
