@@ -3,6 +3,10 @@ import { Button } from '../button';
 import { TextInput } from '../input';
 import { isValidPassword, isValidEmail } from '../../utils/strings-utils';
 
+interface AddUserProps {
+  onSuccess?: () => void;
+}
+
 interface User {
   name: string;
   email: string;
@@ -12,7 +16,7 @@ interface User {
   password: string;
 }
 
-export const AddCreateUser = () => {
+export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
   const initialUserState: User = {
     name: '',
     email: '',
@@ -29,12 +33,12 @@ export const AddCreateUser = () => {
     const { name, email, password, birthDate } = user;
     const newErrors: Partial<Record<keyof User, string>> = {};
 
-    newErrors.name = !name.length ? 'Nome é obrigatório' : '';
-    newErrors.email = !email.length || !isValidEmail(email) ? 'Email inválido' : '';
-    newErrors.password = !password.length || !isValidPassword(password) ? 'Senha inválida' : '';
-    newErrors.birthDate = !birthDate.length ? 'Data de nascimento é obrigatória' : '';
-
-    if (newErrors.birthDate === '') {
+    if (!name.trim()) newErrors.name = 'Nome é obrigatório';
+    if (!email.trim() || !isValidEmail(email)) newErrors.email = 'Email inválido';
+    if (!password.trim() || !isValidPassword(password)) newErrors.password = 'Senha inválida';
+    if (!birthDate.trim()) {
+      newErrors.birthDate = 'Data de nascimento é obrigatória';
+    } else {
       const birthDateObj = new Date(birthDate);
       const minDate = new Date('1900-01-01');
       const today = new Date();
@@ -53,6 +57,9 @@ export const AddCreateUser = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       console.log('Dados do usuário:', user);
+      if (onSuccess) {
+        onSuccess();
+      }
     }
   };
 
