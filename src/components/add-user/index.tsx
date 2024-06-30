@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '../button';
-import { Input } from '../input';
+import { TextInput } from '../input';
 import { isValidPassword, isValidEmail } from '../../utils/strings-utils';
-
-interface AddUserProps {
-  onSuccess?: () => void;
-}
 
 interface User {
   name: string;
@@ -16,7 +12,7 @@ interface User {
   password: string;
 }
 
-export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
+export const AddCreateUser = () => {
   const initialUserState: User = {
     name: '',
     email: '',
@@ -33,10 +29,10 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
     const { name, email, password, birthDate } = user;
     const newErrors: Partial<Record<keyof User, string>> = {};
 
-    newErrors.name = !name.trim() ? 'Nome é obrigatório' : '';
-    newErrors.email = !email.trim() || !isValidEmail(email) ? 'Email inválido' : '';
-    newErrors.password = !password.trim() || !isValidPassword(password) ? 'Senha inválida' : '';
-    newErrors.birthDate = !birthDate.trim() ? 'Data de nascimento é obrigatória' : '';
+    newErrors.name = !name.length ? 'Nome é obrigatório' : '';
+    newErrors.email = !email.length || !isValidEmail(email) ? 'Email inválido' : '';
+    newErrors.password = !password.length || !isValidPassword(password) ? 'Senha inválida' : '';
+    newErrors.birthDate = !birthDate.length ? 'Data de nascimento é obrigatória' : '';
 
     if (newErrors.birthDate === '') {
       const birthDateObj = new Date(birthDate);
@@ -57,7 +53,6 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
 
     if (Object.keys(validationErrors).length === 0) {
       console.log('Dados do usuário:', user);
-      if (onSuccess) onSuccess();
     }
   };
 
@@ -68,23 +63,33 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
   return (
     <form onSubmit={handleSubmit}>
       <h1>Adicionar Usuário</h1>
-      <Input text="Nome" value={user.name} onChange={(e) => handleChange('name', e.target.value)} error={errors.name} />
-      <Input
+      <TextInput
+        text="Nome"
+        value={user.name}
+        onChange={(e) => handleChange('name', e.target.value)}
+        error={errors.name}
+      />
+      <TextInput
         text="Email"
         value={user.email}
         onChange={(e) => handleChange('email', e.target.value)}
         error={errors.email}
       />
-      <Input
+      <TextInput
         text="Data de Nascimento"
         type="date"
         value={user.birthDate}
         onChange={(e) => handleChange('birthDate', e.target.value)}
         error={errors.birthDate}
       />
-      <Input text="Telefone" type="tel" value={user.phone} onChange={(e) => handleChange('phone', e.target.value)} />
-      <Input text="Tipo de Usuário" value={user.role} onChange={(e) => handleChange('role', e.target.value)} />
-      <Input
+      <TextInput
+        text="Telefone"
+        type="tel"
+        value={user.phone}
+        onChange={(e) => handleChange('phone', e.target.value)}
+      />
+      <TextInput text="Tipo de Usuário" value={user.role} onChange={(e) => handleChange('role', e.target.value)} />
+      <TextInput
         text="Senha"
         type="password"
         value={user.password}
