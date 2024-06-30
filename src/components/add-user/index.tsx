@@ -30,6 +30,7 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
     if (!token) {
       navigate('/');
     }
