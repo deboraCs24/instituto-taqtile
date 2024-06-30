@@ -4,6 +4,9 @@ import { TextInput } from '../input';
 import { isValidPassword, isValidEmail } from '../../utils/strings-utils';
 import { UseCreateUser } from '../../api/auth/index-creat-user';
 import { useNavigate } from 'react-router-dom';
+import { LoginContainer, StyledButton } from '../login/style';
+import { Caption } from '../../utils/typography/caption/style';
+import { H1 } from '../../utils/typography/Heading1/style';
 
 interface AddUserProps {
   onSuccess?: () => void;
@@ -88,8 +91,8 @@ export const UserRegistrationForm = ({ onSuccess }: AddUserProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Adicionar Usuário</h1>
+    <LoginContainer onSubmit={handleSubmit}>
+      <H1>Adicionar Usuário</H1>
       <TextInput
         text="Nome"
         value={user.name}
@@ -123,10 +126,12 @@ export const UserRegistrationForm = ({ onSuccess }: AddUserProps) => {
         onChange={(e) => handleChange('password', e.target.value)}
         error={errors.password}
       />
-      <div style={{ width: '50%', margin: '12px' }}>
-        <Button disabled={loading}>Adicionar Usuário</Button>
-        {error && <p style={{ color: 'red' }}>Erro: {error.message}</p>}
-      </div>
-    </form>
+      <StyledButton>
+        <Button disabled={loading} expand>
+          Adicionar Usuário
+        </Button>
+        {error && <Caption>Erro: {error.message}</Caption>}
+      </StyledButton>
+    </LoginContainer>
   );
 };
