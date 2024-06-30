@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Login } from '../../components/login';
-import { UsersPage } from '../../components/users-list/index-list';
+import { AddCreateUser } from '../../components/add-user';
+import { HomePage } from './pages/home';
 
 const router = createBrowserRouter([
   {
@@ -9,7 +10,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/users',
-    element: <UsersPage />,
+    element: <HomePage />,
+  },
+  {
+    path: '/addUser',
+    element: <AddCreateUser onSuccess={() => console.log('Usuário adicionado com sucesso!')} />,
   },
 ]);
 
