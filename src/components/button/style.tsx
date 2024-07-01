@@ -12,4 +12,8 @@ export const ButtonContainer = styled.button<ButtonProps>`
   border: none;
   border-radius: 10px;
   cursor: ${(props) => (props.disabled ? 'wait' : 'pointer')};
+
+  @media screen and (max-width: 480px) {
+    margin-bottom: 16px;
+  }
 `;

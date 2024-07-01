@@ -6,6 +6,7 @@ export const InputContainer = styled.div<{ expand?: boolean }>`
   width: ${({ expand }) => (expand ? '100%' : '20%')};
   display: flex;
   flex-direction: column;
+
   @media screen and (max-width: 480px) {
     width: 80%;
   }
