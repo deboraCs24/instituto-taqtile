@@ -1,15 +1,17 @@
 import React from 'react';
+import { StyledButton } from './style';
 
-interface ButtonProps {
+export interface ButtonProps {
   children?: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
+  expand?: boolean;
 }
 
-export const Button = ({ children, onClick, disabled }: ButtonProps) => {
+export const Button = ({ children, onClick, disabled, expand }: ButtonProps) => {
   return (
-    <button onClick={onClick} disabled={disabled}>
+    <StyledButton onClick={onClick} disabled={disabled} expand={expand}>
       {children}
-    </button>
+    </StyledButton>
   );
 };

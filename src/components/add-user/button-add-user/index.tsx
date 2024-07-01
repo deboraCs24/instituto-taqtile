@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '../../button';
 
 interface ButtonFormProps {
   children?: React.ReactNode;
@@ -16,7 +17,7 @@ export const UserList = ({ children }: ButtonFormProps) => {
     <div>
       <h1>Adicionar Lista de Usuários</h1>
       <div>
-        <button onClick={navigateToAddUser}>Adicionar Usuário</button>
+        <Button onClick={navigateToAddUser}>Adicionar Usuário</Button>
         {children}
       </div>
     </div>

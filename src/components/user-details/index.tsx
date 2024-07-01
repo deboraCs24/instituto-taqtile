@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { GetUserDetails } from '../../domain/details-user/authentication';
 import { Details } from './index-details';
 import { Button } from '../button';
+import { H1 } from '../../utils/typography/Heading1/style';
 
 export const UserDetailsPage = () => {
   const { userId } = useParams<{ userId: string }>();
@@ -36,7 +37,7 @@ export const UserDetailsPage = () => {
 
   return (
     <div>
-      <h1>Detalhes do Usuário</h1>
+      <H1>Detalhes do Usuário</H1>
       <Details
         userId={user.id}
         userName={user.name}
@@ -45,7 +46,9 @@ export const UserDetailsPage = () => {
         birthDate={user.birthDate}
         role={user.role}
       />
-      <Button onClick={handleGoBack}>Retonar para Lista de Usuários</Button>
+      <Button onClick={handleGoBack} disabled={loading}>
+        Retonar para Lista de Usuários
+      </Button>
     </div>
   );
 };
