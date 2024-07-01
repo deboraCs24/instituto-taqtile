@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonContainer } from './style';
+import { StyledButton } from './style';
 
 export interface ButtonProps {
   children?: React.ReactNode;
@@ -10,8 +10,8 @@ export interface ButtonProps {
 
 export const Button = ({ children, onClick, disabled, expand }: ButtonProps) => {
   return (
-    <ButtonContainer onClick={onClick} disabled={disabled} expand={expand}>
+    <StyledButton onClick={onClick} disabled={disabled} expand={expand}>
       {children}
-    </ButtonContainer>
+    </StyledButton>
   );
 };

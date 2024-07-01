@@ -6,7 +6,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION, LoginInputData } from '../../domain/login';
 import { useNavigate } from 'react-router-dom';
 import { H1 } from '../../utils/typography/Heading1/style';
-import { LoginContainer, StyledButton } from './style';
+import { ButtonContainer, LoginContainer } from './style';
 import { Caption } from '../../utils/typography/caption/style';
 
 interface LoginProps {
@@ -71,11 +71,11 @@ export const Login = ({ onSuccess }: LoginProps) => {
         onChange={(e) => setPassword(e.target.value)}
         error={passwordError}
       />
-      <StyledButton>
+      <ButtonContainer>
         <Button onClick={handleSubmit} disabled={loading} expand>
           {loading ? 'Carregando...' : 'Entrar'}
         </Button>
-      </StyledButton>
+      </ButtonContainer>
       {error && <Caption>Error: {error.message}</Caption>}
     </LoginContainer>
   );

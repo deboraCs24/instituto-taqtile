@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ButtonProps } from './';
 
-export const ButtonContainer = styled.button<ButtonProps>`
+export const StyledButton = styled.button<ButtonProps>`
   font-family: 'Source Sans 3';
   font-size: 16px;
   font-weight: 600;
