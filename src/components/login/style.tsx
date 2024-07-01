@@ -7,7 +7,7 @@ export const LoginContainer = styled.form`
   align-items: center;
 `;
 
-export const StyledButton = styled.div`
+export const ButtonContainer = styled.div`
   width: 20%;
   margin-top: 16px;
 

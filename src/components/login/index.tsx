@@ -6,7 +6,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION, LoginInputData } from '../../api/mutation/login';
 import { useNavigate } from 'react-router-dom';
 import { H1 } from '../../utils/typography/Heading1/style';
-import { LoginContainer, StyledButton } from './style';
+import { ButtonContainer, LoginContainer } from './style';
 import { Caption } from '../../utils/typography/caption/style';
 
 export const Login = () => {
@@ -76,11 +76,11 @@ export const Login = () => {
       <H1>Bem Vindo a TaqTile</H1>
       <TextInput text="E-mail" value={email} onChange={handleEmailChange} error={emailError} />
       <TextInput text="Senha" type="password" value={password} onChange={handlePasswordChange} error={passwordError} />
-      <StyledButton>
+      <ButtonContainer>
         <Button onClick={handleSubmit} disabled={loading}>
           {loading ? 'Carregando...' : 'Entrar'}
         </Button>
-      </StyledButton>
+      </ButtonContainer>
       {error && <Caption>Error: {error.message}</Caption>}
     </LoginContainer>
   );

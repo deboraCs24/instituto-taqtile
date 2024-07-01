@@ -4,7 +4,7 @@ import { TextInput } from '../input';
 import { isValidPassword, isValidEmail } from '../../utils/strings-utils';
 import { UseCreateUser } from '../../api/auth/index-creat-user';
 import { useNavigate } from 'react-router-dom';
-import { LoginContainer, StyledButton } from '../login/style';
+import { LoginContainer, ButtonContainer } from '../login/style';
 import { Caption } from '../../utils/typography/caption/style';
 import { H1 } from '../../utils/typography/Heading1/style';
 
@@ -126,12 +126,12 @@ export const UserRegistrationForm = ({ onSuccess }: AddUserProps) => {
         onChange={(e) => handleChange('password', e.target.value)}
         error={errors.password}
       />
-      <StyledButton>
+      <ButtonContainer>
         <Button disabled={loading} expand>
           Adicionar Usuário
         </Button>
         {error && <Caption>Erro: {error.message}</Caption>}
-      </StyledButton>
+      </ButtonContainer>
     </LoginContainer>
   );
 };
