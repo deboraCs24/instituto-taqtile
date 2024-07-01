@@ -17,21 +17,20 @@ interface User {
 }
 
 export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
-  const initialUserState: User = {
+  const [user, setUser] = useState<User>({
     name: '',
     email: '',
     birthDate: '',
     phone: '',
     role: '',
     password: '',
-  };
+  });
 
-  const [user, setUser] = useState<User>(initialUserState);
-  const [errors, setErrors] = useState<Partial<Record<keyof User, string>>>({});
+  const [errors, setErrors] = useState<{ [key in keyof User]?: string }>({});
 
-  const validateUser = (user: User): Partial<Record<keyof User, string>> => {
+  const validateUser = (): boolean => {
     const { name, email, password, birthDate } = user;
-    const newErrors: Partial<Record<keyof User, string>> = {};
+    const newErrors: typeof errors = {};
 
     if (!name.trim()) newErrors.name = 'Nome é obrigatório';
     if (!email.trim() || !isValidEmail(email)) newErrors.email = 'Email inválido';
@@ -47,15 +46,15 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
       }
     }
 
-    return newErrors;
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const validationErrors = validateUser(user);
-    setErrors(validationErrors);
+    const isValid = validateUser();
 
-    if (Object.keys(validationErrors).length === 0) {
+    if (isValid) {
       console.log('Dados do usuário:', user);
       if (onSuccess) {
         onSuccess();
