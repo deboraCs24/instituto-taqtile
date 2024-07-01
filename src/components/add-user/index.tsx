@@ -30,6 +30,18 @@ export const UserRegistrationForm = ({ onSuccess }: AddUserProps) => {
 
   const [errors, setErrors] = useState<{ [key in keyof User]?: string }>({});
 
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/');
+    }
+  }, [token, navigate]);
+
+  const { loading, createUser, error } = UseCreateUser({ token });
+
   const validateUser = (): boolean => {
     const { name, email, password, birthDate } = user;
     const newErrors: typeof errors = {};
@@ -54,12 +66,20 @@ export const UserRegistrationForm = ({ onSuccess }: AddUserProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const isValid = validateUser();
-
-    if (isValid) {
-      if (onSuccess) {
-        onSuccess();
-      }
+    if (validateUser()) {
+      const { name, email, birthDate, phone, role, password } = user;
+      const userData = { email, name, birthDate, phone, role, password };
+      createUser({ variables: { data: userData } })
+        .then((register) => {
+          console.log('Resposta do registro:', register);
+          if (register?.data?.createUser) {
+            if (onSuccess) onSuccess();
+            navigate('/users');
+          }
+        })
+        .catch((error) => {
+          console.error('Erro durante a criação do usuário:', error);
+        });
     }
   };
 
