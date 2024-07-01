@@ -16,7 +16,7 @@ interface User {
   password: string;
 }
 
-export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
+export const UserRegistrationForm = ({ onSuccess }: AddUserProps) => {
   const [user, setUser] = useState<User>({
     name: '',
     email: '',
@@ -38,10 +38,10 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
     if (!birthDate.trim()) {
       newErrors.birthDate = 'Data de nascimento é obrigatória';
     } else {
-      const birthDateObj = new Date(birthDate);
+      const parsedBirthDate = new Date(birthDate);
       const minDate = new Date('1900-01-01');
       const today = new Date();
-      if (birthDateObj < minDate || birthDateObj > today) {
+      if (parsedBirthDate < minDate || parsedBirthDate > today) {
         newErrors.birthDate = 'Data de nascimento inválida';
       }
     }
@@ -55,7 +55,6 @@ export const AddCreateUser = ({ onSuccess }: AddUserProps) => {
     const isValid = validateUser();
 
     if (isValid) {
-      console.log('Dados do usuário:', user);
       if (onSuccess) {
         onSuccess();
       }
