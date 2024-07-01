@@ -10,6 +10,7 @@ export const LoginContainer = styled.form`
 export const StyledButton = styled.div`
   width: 20%;
   margin-top: 16px;
+
   @media screen and (max-width: 480px) {
     width: 80%;
   }
