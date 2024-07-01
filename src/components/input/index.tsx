@@ -1,4 +1,5 @@
 import React from 'react';
+import { InputContainer, StyledInput } from './style';
 
 interface InputProps {
   text?: string;
@@ -11,10 +12,11 @@ interface InputProps {
 
 export const Input = ({ text, value, error, onChange, type = 'text' }: InputProps) => {
   return (
-    <div>
+    <InputContainer>
       {text && <label>{text}</label>}
-      <input type={type} value={value} onChange={onChange} />
+      <StyledInput type={type} value={value} onChange={onChange} />
+
       {!!error && <p> {error}</p>}
-    </div>
+    </InputContainer>
   );
 };
