@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { CREATE_USER_MUTATION } from './index';
+import { CREATE_USER_MUTATION } from '../queries/index-creat-user';
 
 interface UserInput {
   email: string;

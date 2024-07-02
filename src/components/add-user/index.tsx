@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '../button';
 import { TextInput } from '../input';
 import { isValidPassword, isValidEmail } from '../../utils/strings-utils';
-import { UseCreateUser } from '../../domain/creat-user/authentication';
+import { UseCreateUser } from '../../api/auth/index-creat-user';
 import { useNavigate } from 'react-router-dom';
 
 interface AddUserProps {
