@@ -1,9 +1,14 @@
 export const isValidEmail = (email: string) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+  const atSymbolIndex = email.indexOf('@');
+  const dotIndex = email.indexOf('.', atSymbolIndex);
+
+  return atSymbolIndex > 0 && dotIndex > atSymbolIndex + 1 && dotIndex < email.length - 1;
 };
 
 export const isValidPassword = (password: string) => {
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/;
-  return passwordRegex.test(password);
+  const hasMinimumLength = password.length >= 8;
+  const containsLetter = password.split('').some((character) => isNaN(Number(character)));
+  const containsNumber = password.split('').some((character) => !isNaN(Number(character)));
+
+  return hasMinimumLength && containsLetter && containsNumber;
 };
