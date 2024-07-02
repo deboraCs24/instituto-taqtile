@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Login } from '../../components/login';
 import { UserRegistrationForm } from '../../components/add-user';
 import { HomePage } from './pages/home';
+import { UserDetailsPage } from '../../components/user-details';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: '/addUser',
     element: <UserRegistrationForm onSuccess={() => console.log('Usuário adicionado com sucesso!')} />,
+  },
+  {
+    path: '/usersList/:userId',
+    element: <UserDetailsPage />,
   },
 ]);
 
