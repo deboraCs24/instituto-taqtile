@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GET_USERS, UsersData } from '../queries/index-users';
+import { GET_USERS, UsersData } from '../queries/users-list/index-get';
 
 export const GetUsers = () => {
   const token = localStorage.getItem('token');
