@@ -4,9 +4,6 @@ export const isValidEmail = (email: string) => {
 };
 
 export const isValidPassword = (password: string) => {
-  const hasMinimumLength = password.length >= 8;
-  const containsLetter = password.split('').some((character) => isNaN(Number(character)));
-  const containsNumber = password.split('').some((character) => !isNaN(Number(character)));
-
-  return hasMinimumLength && containsLetter && containsNumber;
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/;
+  return passwordRegex.test(password);
 };
