@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../button';
 import { TextInput } from '../input';
 import { isValidPassword, isValidEmail } from '../../utils/strings-utils';
+import { UseCreateUser } from '../../api/auth/index-creat-user';
+import { useNavigate } from 'react-router-dom';
 
 interface AddUserProps {
   onSuccess?: () => void;
@@ -28,6 +30,18 @@ export const UserRegistrationForm = ({ onSuccess }: AddUserProps) => {
 
   const [errors, setErrors] = useState<{ [key in keyof User]?: string }>({});
 
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/');
+    }
+  }, [token, navigate]);
+
+  const { loading, createUser, error } = UseCreateUser({ token });
+
   const validateUser = (): boolean => {
     const { name, email, password, birthDate } = user;
     const newErrors: typeof errors = {};
@@ -50,14 +64,22 @@ export const UserRegistrationForm = ({ onSuccess }: AddUserProps) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const isValid = validateUser();
-
-    if (isValid) {
-      if (onSuccess) {
-        onSuccess();
-      }
+    if (validateUser()) {
+      const { name, email, birthDate, phone, role, password } = user;
+      const userData = { email, name, birthDate, phone, role, password };
+      createUser({ variables: { data: userData } })
+        .then((register) => {
+          console.log('Resposta do registro:', register);
+          if (register?.data?.createUser) {
+            if (onSuccess) onSuccess();
+            navigate('/users');
+          }
+        })
+        .catch((error) => {
+          console.error('Erro durante a criação do usuário:', error);
+        });
     }
   };
 
@@ -102,7 +124,8 @@ export const UserRegistrationForm = ({ onSuccess }: AddUserProps) => {
         error={errors.password}
       />
       <div style={{ width: '50%', margin: '12px' }}>
-        <Button>Adicionar Usuário</Button>
+        <Button disabled={loading}>Adicionar Usuário</Button>
+        {error && <p style={{ color: 'red' }}>Erro: {error.message}</p>}
       </div>
     </form>
   );
