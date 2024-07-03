@@ -5,6 +5,7 @@ import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION, LoginInputData } from '../../api/mutation/login';
 import { useNavigate } from 'react-router-dom';
+import { StyledFormContainer } from '../input/style';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -69,7 +70,7 @@ export const Login = () => {
   };
 
   return (
-    <div>
+    <StyledFormContainer>
       <h1>Bem Vindo a TaqTile</h1>
       <TextInput text="E-mail" value={email} onChange={handleEmailChange} error={emailError} />
       <TextInput text="Senha" type="password" value={password} onChange={handlePasswordChange} error={passwordError} />
@@ -79,6 +80,6 @@ export const Login = () => {
         </Button>
       </div>
       {error && <p>Error: {error.message}</p>}
-    </div>
+    </StyledFormContainer>
   );
 };
