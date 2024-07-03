@@ -16,7 +16,7 @@ export const UsersPage = () => {
 
   const handlePreviousPage = () => {
     if (page > 1) {
-      setPage(page - 1);
+      handlePageChange(page - 1);
     }
   };
 
