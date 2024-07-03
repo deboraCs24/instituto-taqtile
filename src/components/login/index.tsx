@@ -5,7 +5,9 @@ import { isValidEmail, isValidPassword } from '../../utils/strings-utils';
 import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION, LoginInputData } from '../../api/mutation/login';
 import { useNavigate } from 'react-router-dom';
-import { StyledFormContainer } from '../input/style';
+import { H1 } from '../../utils/typography/Heading1/style';
+import { ButtonContainer, LoginContainer } from './style';
+import { Caption } from '../../utils/typography/caption/style';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -70,16 +72,16 @@ export const Login = () => {
   };
 
   return (
-    <StyledFormContainer>
-      <h1>Bem Vindo a TaqTile</h1>
+    <LoginContainer>
+      <H1>Bem Vindo a TaqTile</H1>
       <TextInput text="E-mail" value={email} onChange={handleEmailChange} error={emailError} />
       <TextInput text="Senha" type="password" value={password} onChange={handlePasswordChange} error={passwordError} />
-      <div>
-        <Button onClick={handleSubmit} disabled={loading}>
+      <ButtonContainer>
+        <Button onClick={handleSubmit} disabled={loading} expand>
           {loading ? 'Carregando...' : 'Entrar'}
         </Button>
-      </div>
-      {error && <p>Error: {error.message}</p>}
-    </StyledFormContainer>
+      </ButtonContainer>
+      {error && <Caption>Error: {error.message}</Caption>}
+    </LoginContainer>
   );
 };
