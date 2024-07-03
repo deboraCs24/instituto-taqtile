@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { getBorderStyle } from '../../utils/style-border';
-import { InputProps } from '.';
+import { TextInputProps } from '.';
 
 export const InputContainer = styled.div<{ expand?: boolean }>`
   width: ${({ expand }) => (expand ? '100%' : '20%')};
@@ -12,7 +12,7 @@ export const InputContainer = styled.div<{ expand?: boolean }>`
   }
 `;
 
-export const StyledInput = styled.input<InputProps>`
+export const StyledInput = styled.input<TextInputProps>`
   border: 1px solid ${(props) => getBorderStyle({ ...props, value: props.value ?? '' })};
   padding: 12px 20px;
   border-radius: 8px;

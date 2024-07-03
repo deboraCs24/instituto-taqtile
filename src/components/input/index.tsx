@@ -3,7 +3,7 @@ import { InputContainer, StyledInput } from './style';
 import { Label } from '../../utils/typography/label/style';
 import { Caption } from '../../utils/typography/caption/style';
 
-interface TextInputProps {
+export interface TextInputProps {
   text?: string;
   type?: string;
   value?: string;
