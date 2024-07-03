@@ -77,7 +77,7 @@ export const Login = () => {
       <TextInput text="E-mail" value={email} onChange={handleEmailChange} error={emailError} />
       <TextInput text="Senha" type="password" value={password} onChange={handlePasswordChange} error={passwordError} />
       <ButtonContainer>
-        <Button onClick={handleSubmit} disabled={loading}>
+        <Button onClick={handleSubmit} disabled={loading} expand>
           {loading ? 'Carregando...' : 'Entrar'}
         </Button>
       </ButtonContainer>
